@@ -23,7 +23,6 @@
 import { getDecodedAccessToken } from '../decoder';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
-import { useAppSelector } from '../store/hook';
 
 const PrivateRoute = ({ isAuth }: any) => {
     console.log(isAuth);
