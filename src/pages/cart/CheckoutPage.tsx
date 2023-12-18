@@ -11,11 +11,10 @@ import { useCheckoutMutation } from "../../api/bill";
 import Swal from "sweetalert2";
 import { useCreatePaymentMutation } from "../../api/payment";
 import { useDeleteOneProductCartMutation, useGetCartByUserQuery } from "../../api/cart";
-// import { CouponCheckOut } from "./components";
-// import BillCheckout from "./components/bill";
+import CouponCheckOut from "./Coupon";
+import BillCheckout from "./Bill";
 
 const CheckoutPage = () => {
-
     // state
     const navigate = useNavigate();
     const [value, setValue] = useState<any>({});
@@ -154,10 +153,11 @@ const CheckoutPage = () => {
 
     // ap ma giam gia
     const [couponCode, setCouponCode] = useState("");
+
     return (
         <form
             onSubmit={handleSubmit(onCheckOut)}
-            className="md:w-[1280px] mx-auto grid md:grid-cols-[800px,auto] gap-8 px-2 mt-5 md:px-0 py-6"
+            className="md:w-[1250px] mx-auto grid md:grid-cols-[800px,auto] gap-8 px-2 mt-5 md:px-0 py-6"
         >
             {isLoadingButton && (
                 <div className="fixed inset-0 bg-black opacity-50 z-50"></div>
@@ -250,15 +250,15 @@ const CheckoutPage = () => {
                     </div>
                     <div className="payment">
                         {/* <div className="box-shipping">
-                              <h1 className="font-bold text-[20px] mb-2">Vận chuyển</h1>
-                              <div className="flex  justify-between items-center border rounded-md px-2 py-3">
-                                  <div className="flex gap-2 items-center">
-                                      <input type="radio" />
-                                      <p className="text-[14px]">Miễn phí vận chuyển đơn hàng từ 498k</p>
-                                  </div>
-                                  <p>Miễn phí</p>
-                              </div>
-                          </div> */}
+                            <h1 className="font-bold text-[20px] mb-2">Vận chuyển</h1>
+                            <div className="flex  justify-between items-center border rounded-md px-2 py-3">
+                                <div className="flex gap-2 items-center">
+                                    <input type="radio" />
+                                    <p className="text-[14px]">Miễn phí vận chuyển đơn hàng từ 498k</p>
+                                </div>
+                                <p>Miễn phí</p>
+                            </div>
+                        </div> */}
                         <div className="box-payment">
                             <h1 className="font-boldx  text-[20px] mb-2 mt-5">Thanh toán</h1>
                             <Radio.Group onChange={onChange} value={value}>
@@ -336,7 +336,7 @@ const CheckoutPage = () => {
                 })}
 
                 <div className="border-b px-5 py-4">
-                    {/* <CouponCheckOut
+                    <CouponCheckOut
                         setCouponCode={setCouponCode}
                         user={user}
                         totalPrice={totalPrice}
@@ -346,14 +346,14 @@ const CheckoutPage = () => {
                         selectedProducts={selectedProducts}
                         shippingFee={shippingFee}
                         setCouponIdRes={setCouponIdRes}
-                    /> */}
+                    />
                     {/* {couponCodeData || dataCoupon && (
-              <div className="flex flex-wrap gap-2 ">
-                <p className="bg-red-200 text-red-400 p-2 shadow-md rounded-lg">
-                  {couponCodeData || dataCoupon?.coupon_code}
-                </p>
-              </div>
-            )} */}
+            <div className="flex flex-wrap gap-2 ">
+              <p className="bg-red-200 text-red-400 p-2 shadow-md rounded-lg">
+                {couponCodeData || dataCoupon?.coupon_code}
+              </p>
+            </div>
+          )} */}
                 </div>
                 <div>
                     <div className=" flex items-center justify-between border-b py-4 px-5">
@@ -431,7 +431,7 @@ const CheckoutPage = () => {
                     </div>
                 </div>
             </div>
-            {/* <Modal
+            <Modal
                 title="Hóa đơn chi tiết"
                 visible={isBillModalVisible}
                 onOk={handleBillModalOk}
@@ -439,9 +439,9 @@ const CheckoutPage = () => {
                 width={900}
             >
                 <BillCheckout bill={billDetail} />
-            </Modal> */}
+            </Modal>
         </form>
-    )
+    );
 }
 
 export default CheckoutPage
