@@ -1,13 +1,19 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { Spin } from "antd";
 import { useLoginMutation } from "../../../api/auth";
 import { ISignin } from "../../../interface/auth";
 import { Spin } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 import VerifyEmail from "../Register/VerifyEmail";
+
+import io from "socket.io-client"
+const socket = io("http://localhost:8080", { transports: ["websocket"] });
+import { toast } from "react-toastify";
+import { getDecodedAccessToken } from "../../../decoder";
+// import Cookies from 'universal-cookie';
 const SigninPage = () => {
     const navigate = useNavigate();
     const [Login] = useLoginMutation();
@@ -26,7 +32,17 @@ const SigninPage = () => {
         setShowPassword(!showPassword);
     };
 
+    useEffect(() => {
+        socket.on("new_user_login", (data: any) => {
+            console.log("end here");
+            toast.success(data.message)
 
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
 
     const validateEmail = (value: string) => {
         // Điều kiện kiểm tra email ở đây
@@ -43,15 +59,16 @@ const SigninPage = () => {
             const data: any = await Login(value).unwrap();
             if (data.success === true) {
                 await localStorage.setItem("accessToken", JSON.stringify(data?.accessToken));
+                const token: any = getDecodedAccessToken();
+
+                // const cookies = new Cookies();
+                // const refreshToken = cookies.get('refreshToken');
+
+                await socket.emit("new_user_login", {
+                    message: data.message,
+                    token,
+                });
                 navigate("/");
-                Swal.fire({
-                    position: 'top',
-                    icon: 'success',
-                    title: `${data.message}`,
-                    showConfirmButton: false,
-                    timer: 2000
-                })
-                return;
             } else if (data.success === 1) {
                 setEmail(value?.user_email);
                 Swal.fire({

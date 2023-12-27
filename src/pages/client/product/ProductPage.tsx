@@ -24,6 +24,7 @@ const ProductPage = () => {
         data: products,
         error: isErrorProduct,
         isLoading: isLoadingProduct } = useGetAllProductClientQuery(req as any);
+
     const { data: categories } = useGetAllCategoryClientQuery();
     // const { data: brands } = useGetAllBrandClientQuery<any>();
     // const { data: colors } = useGetAllColorClientQuery<any>();

@@ -8,28 +8,28 @@ import "./index.css"
 import SearchHeader from "./components/Search";
 import { useGetUserByIdQuery } from "../../api/user";
 import { useGetCartByUserQuery } from "../../api/cart";
-// import { useGetCategoryQuery } from "../../api/category";
+import Notification from "./components/Notification";
 
 const Header = () => {
-
   const token: any = getDecodedAccessToken();
   const navigate = useNavigate();
   const roleId = token?.role_name;
 
-
   const { data: userData } = useGetUserByIdQuery<any>(token?._id);
   const user = useMemo(() => userData?.user, [userData])
   const { data: carts } = useGetCartByUserQuery(token?._id);
-  const cartList = carts?.cart;
+
+  const cartList = useMemo(() => carts?.cart, [carts]);
   const [status, setStatus] = useState(false);
 
   const { data: FavoriteUser } = useGetFavoriteByUserQuery<any>(token?._id);
-  const favoriteData = FavoriteUser?.favorite;
+  const favoriteData = useMemo(() => FavoriteUser?.favorite, [FavoriteUser]);
   // const [currentPage, setCurrentPage] = useState("");
   const handleLogout = () => {
     localStorage.removeItem("status");
     localStorage.removeItem("accessToken");
     setStatus(true);
+
     window.location.reload();
   };
 
@@ -52,25 +52,22 @@ const Header = () => {
     };
   }, []);
 
-  // const [showMenu, setShowMenu] = useState(true); // Khai báo state để ẩn/hiện thanh menu
+  const [showMenu, setShowMenu] = useState(true); // Khai báo state để ẩn/hiện thanh menu
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const position = window.pageYOffset;
-  //     setShowMenu(position < 100); // Khi vị trí cuộn dưới 100px, hiển thị menu
-  //   };
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = window.pageYOffset;
+      setShowMenu(position < 100); // Khi vị trí cuộn dưới 100px, hiển thị menu
+    };
 
-  //   window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-  // const headerClass = showMenu ? "py-3 transition-all duration-300" : " transition-all duration-300";
-
-  // const { data: categoryData } = useGetCategoryQuery<any>();
-  // const categoryList = categoryData?.categories;
-
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const headerClass = showMenu ? " py-10 transition-all duration-300 " : " transition-all py-5 flex items-center duration-300";
+  const menuChild = showMenu ? "mt-10" : "";
 
   // const location = useLocation();
   // const [currentPage, setCurrentPage] = useState("");
@@ -122,13 +119,9 @@ const Header = () => {
   //   };
   // }, []);
 
-  // const toggleDropdown = () => {
-  //   setIsDropdownOpen((prevState) => !prevState);
-  // };
   return (
-    <header className="header bg-[#000000] py-5 md:py-10 w-full  md:h-[200px] shadow-lg">
-      <div className="flex items-center  md:w-[1200px] mx-auto justify-between px-5 pt-2 mb-2 page-container">
-
+    <header className={`bg-black dark:bg-gray-900  fixed w-full z-20 top-0 left-0 dark:border-gray-600  ${headerClass}`}>
+      <div className="flex items-center  md:w-[1200px] mx-auto justify-between px-5  page-container">
         <div className="absolute md:max-w-[200px] max-w-[100px] top-[10px] left-[10px]">
           <img
             src="https://bizweb.dktcdn.net/100/376/737/themes/894814/assets/bg_left_header.png?1665394167535"
@@ -143,6 +136,35 @@ const Header = () => {
             className="object-cover w-full  relative h-full"
           />
         </div>
+        <nav className={`${menuChild}`}>
+          <ul className="flex items-center justify-center md:text-[16px] text-[12px] font-medium capitalize  text-[#acacac]">
+            <li className="pr-3 transition-all hover:text-secondary  hover:border-b-secondary">
+              <Link to="/" className="font-bold active:text-secondary">
+                Trang chủ
+              </Link>
+            </li>
+            <li className="px-3 transition-all hover:text-secondary focus:text-red-500 hover:border-b-secondary">
+              <Link to="/products" className="font-bold ">
+                Sản phẩm
+              </Link>
+            </li>
+            <li className="px-3 transition-all hover:text-secondary  hover:border-b-secondary">
+              <Link to="/about" className="font-bold ">
+                Giới thiệu
+              </Link>
+            </li>
+            <li className="px-3 transition-all hover:text-secondary  hover:border-b-secondary">
+              <Link to="/contact" className="font-bold ">
+                Liên hệ
+              </Link>
+            </li>
+            <li className="px-3 transition-all hover:text-secondary  hover:border-b-secondary">
+              <Link to="/news" className="font-bold ">
+                Tin tức
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <div className="flex items-center md:order-2">
           <div className="header-icon flex items-center space-x-3">
             <div className="nav-search text-[20px] cursor-pointer relative">
@@ -177,7 +199,7 @@ const Header = () => {
                     <Link to="/account/change-password-new">Đổi mật khẩu</Link>
                   </li>
                   <li>
-                    <Link to="" onClick={handleLogout}>
+                    <Link to="#" onClick={handleLogout}>
                       Đăng xuất
                     </Link>
                   </li>
@@ -217,6 +239,7 @@ const Header = () => {
                 )}
               </div>
             </div>
+            <Notification />
             <div className="nav-heart text-[20px] cursor-pointer relative">
               {user ? (
                 <Link to={`/account/favorites`} className="icon-heart">
@@ -330,35 +353,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <nav >
-        <ul className="flex items-center justify-center py-2 mt-9 md:text-[16px] text-[12px] pb-2 font-medium capitalize  text-[#acacac]">
-          <li className="pr-3 transition-all hover:text-secondary  hover:border-b-secondary">
-            <Link to="/" className="font-bold active:text-secondary">
-              Trang chủ
-            </Link>
-          </li>
-          <li className="px-3 transition-all hover:text-secondary focus:text-red-500 hover:border-b-secondary">
-            <Link to="/products" className="font-bold ">
-              Sản phẩm
-            </Link>
-          </li>
-          <li className="px-3 transition-all hover:text-secondary  hover:border-b-secondary">
-            <Link to="/about" className="font-bold ">
-              Giới thiệu
-            </Link>
-          </li>
-          <li className="px-3 transition-all hover:text-secondary  hover:border-b-secondary">
-            <Link to="/contact" className="font-bold ">
-              Liên hệ
-            </Link>
-          </li>
-          <li className="px-3 transition-all hover:text-secondary  hover:border-b-secondary">
-            <Link to="/news" className="font-bold ">
-              Tin tức
-            </Link>
-          </li>
-        </ul>
-      </nav>
+
     </header>
   );
 };

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import GroupBanner from "./components/groupBanner";
 import CategoryFeature from "./components/CategoryFeature";
 import Contact from "./components/Contact";
-import ProductFeature from "./components/ProductFeature";
 import GroupProductNew from "./components/group-product-new";
 const HomePage = () => {
     return (
@@ -12,7 +11,7 @@ const HomePage = () => {
             <main className="body">
                 <GroupBanner />
                 {/* danh mục */}
-                <section className="h-[300px] md:h-[700px] bg-white mb-10 z-[100px]">
+                {/* <section className="h-[300px] md:h-[700px] bg-white mb-10 z-[100px]">
                     <div className="grid grid-cols-1 pt-8 md:pt-[100px] gap-4 lg:grid-cols-4 lg:gap-8 md:w-[1200px] mx-auto mb-5 md:mb-10">
                         <div className="rounded-lg bg-gray-100 md:block hidden">
                             <div className="flex h-32 flex-col justify-between border-e bg-white">
@@ -77,7 +76,7 @@ const HomePage = () => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 {/* icon */}
                 <CategoryFeature />
@@ -91,7 +90,7 @@ const HomePage = () => {
                     <ProductListCategory categoryId="64bbada61bf229520476dbff" />
                 </section> */}
 
-                <ProductFeature />
+                {/* <ProductFeature /> */}
                 <section className="max-w-[1200px] mx-auto">
                     <GroupProductNew />
                 </section>

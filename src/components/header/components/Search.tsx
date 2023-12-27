@@ -154,9 +154,9 @@ const SearchHeader = () => {
                             onChange={onHandleCategory}
                             className="py-[9px] w-full px-2 bg-gray-100  outline-none">
                             <option value="">Chọn danh mục</option>
-                            {CategoryData?.categories?.map((item: ICategory) => {
+                            {CategoryData?.categories?.map((item: ICategory, index: any) => {
                                 return (
-                                    <option key={item._id} value={item._id}>
+                                    <option key={index} value={item._id}>
                                         {item.category_name}
                                     </option>
                                 )
@@ -184,9 +184,9 @@ const SearchHeader = () => {
                             onChange={onHandleBrand}
                             className="py-[9px] w-full px-2 bg-gray-100  outline-none">
                             <option value="">Chọn thương hiệu</option>
-                            {BrandData?.brands?.map((item: IBrand) => {
+                            {BrandData?.brands?.map((item: IBrand, index: any) => {
                                 return (
-                                    <option key={item._id} value={item._id}>
+                                    <option key={index} value={item._id}>
                                         {item.brand_name}
                                     </option>
                                 )
@@ -198,9 +198,9 @@ const SearchHeader = () => {
                             onChange={onHandleColor}
                             className="py-[9px] w-full px-2 bg-gray-100  outline-none">
                             <option value="">Chọn màu sắc</option>
-                            {colorData?.colors?.map((item: IColor) => {
+                            {colorData?.colors?.map((item: IColor, index: any) => {
                                 return (
-                                    <option key={item._id} value={item._id}>
+                                    <option key={index} value={item._id}>
                                         {item.color_name}
                                     </option>
                                 )
@@ -212,9 +212,9 @@ const SearchHeader = () => {
                             onChange={onHandleSize}
                             className="py-[9px] w-full px-2 bg-gray-100  outline-none">
                             <option value="">Chọn kích cỡ</option>
-                            {sizeData?.sizes?.map((item: ISize) => {
+                            {sizeData?.sizes?.map((item: ISize, index: any) => {
                                 return (
-                                    <option key={item._id} value={item._id}>
+                                    <option key={index} value={item._id}>
                                         {item.size_name}
                                     </option>
                                 )
@@ -226,9 +226,9 @@ const SearchHeader = () => {
                             onChange={onHandlePrice}
                             className="py-[9px] w-full px-2 bg-gray-100  outline-none">
                             <option value="">Chọn mức giá</option>
-                            {dataFakePrice?.map((item: any) => {
+                            {dataFakePrice?.map((item: any, index: any) => {
                                 return (
-                                    <option key={item._id} value={item._id}>
+                                    <option key={index} value={item._id}>
                                         {item.title}
                                     </option>
                                 )

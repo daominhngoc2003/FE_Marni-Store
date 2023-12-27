@@ -185,7 +185,7 @@ const BillDetail = () => {
                   ) : (
                     ""
                   )}
-                  {(billList?.status === "Unpaid" && billList?.payment_method?.pMethod_name !== "offline") && (
+                  {(billList?.status === "Unpaid" && billList?.payment_method?.pMethod_name !== "offline" && billList?.payment_status?.pStatus_name !== "Abort") && (
                     <div>
                       <p
                         className=" cursor-pointer px-5 max-w-[200px] text-black bg-white border-2 border-green-100 hover:border-green-300  transition-all rounded-md w-full  py-2"

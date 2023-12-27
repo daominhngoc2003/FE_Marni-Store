@@ -342,7 +342,7 @@ const CartPage = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 gap-4 mt-10 max-w-[1280px] mx-auto w-screen px-2 lg:px-0 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-1  gap-4 mt-[200px] max-w-[1280px] mx-auto w-screen px-2 lg:px-0 lg:grid-cols-3 lg:gap-8">
             <div className="min-h-32 mb-4  rounded-lg  lg:col-span-2">
                 <div className="overflow-x-auto bg-gray-100 border border-gray-200 shadow-md">
                     <table className="min-w-full  divide-y-2 divide-gray-200 bg-gray-100 text-sm border border-gray-50 shadow-md shadow-gray-300">

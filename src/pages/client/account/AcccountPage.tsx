@@ -26,7 +26,7 @@ const AccountPage = () => {
   }, [location]);
 
   return (
-    <div className="px-2 mx-auto mt-10 max-w-[1280px] md:px-5">
+    <div className="px-2 mx-auto mt-[200px] max-w-[1280px] md:px-5">
       <div className="grid gap-4 lg:grid-cols-5">
         <div className="col-span-1">
           <div className="py-2 mb-5  rounded-md product_category">

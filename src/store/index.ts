@@ -32,6 +32,7 @@ import dstatusApi, { DstatusReducer } from "../api/deliveryStatus";
 import paymentApi, { paymentReducer } from "../api/payment";
 import bannerApi, { bannerReducer } from "../api/banner";
 import statisticApi, { statisticReducer } from "../api/statistic";
+import notifyApi, { notifyReducer } from "../api/notify";
 
 const persistConfig = {
   key: "root",
@@ -61,6 +62,7 @@ const rootReducer = combineReducers({
   banners: bannerReducer,
   new: newReducer,
   statistics: statisticReducer,
+  notify: notifyReducer,
 });
 
 const attinalMiddleware = [
@@ -85,6 +87,7 @@ const attinalMiddleware = [
   bannerApi.middleware,
   newApi.middleware,
   statisticApi.middleware,
+  notifyApi.middleware,
 ];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IUser } from "../interface/user";
+import Cookies from 'js-cookie';
 
 const userApi = createApi({
   reducerPath: "users",
@@ -7,7 +8,10 @@ const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers) => {
-      const token = JSON.parse(localStorage.getItem("accessToken")!)
+      const token = JSON.parse(localStorage.getItem("accessToken")!);
+      const refreshToken = Cookies.get('refreshToken');
+      console.log(refreshToken);
+
       try {
         headers.set('Authorization', `Bearer ${token}`);
       } catch (error) {

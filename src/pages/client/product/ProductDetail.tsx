@@ -367,8 +367,9 @@ const ProductDetailPage = () => {
             )}`;
         }
     };
+
     return (
-        <div className="max-w-[1280px] mx-auto px-[50px]">
+        <div className="max-w-[1280px] mx-auto px-[50px] mt-[170px]">
             <nav aria-label="Breadcrumb" className="w-full my-5">
                 <div className="flex">
                     <span className="text-gray-500">Trang chủ</span>

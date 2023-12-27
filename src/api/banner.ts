@@ -16,6 +16,7 @@ const bannerApi = createApi({
             return headers;
         },
     }),
+
     endpoints: (builder) => ({
         getAllBanner: builder.query<any, void>({
             query: () => "/banners",

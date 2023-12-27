@@ -3,7 +3,7 @@ import { ISignin, ISignup, IForgetPassword, IVerifyToken, IChangePasswordForget,
 
 const authApi = createApi({
     reducerPath: "auths",
-    tagTypes: ["Auths"],
+    tagTypes: ["auths"],
     baseQuery: fetchBaseQuery({
         baseUrl: import.meta.env.VITE_API_URL,
     }),
@@ -14,7 +14,15 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
+        }),
+        logout: builder.mutation<any, any>({
+            query: (data) => ({
+                url: "/auth/signin",
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ["auths"],
         }),
         register: builder.mutation<ISignup, ISignup>({
             query: (data) => ({
@@ -22,7 +30,7 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
         }),
         forgetPassword: builder.mutation<IForgetPassword, IForgetPassword>({
             query: (data) => ({
@@ -30,7 +38,7 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
         }),
         verifyToken: builder.mutation<IVerifyToken, IVerifyToken>({
             query: (data) => ({
@@ -38,7 +46,7 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
         }),
         verifyUser: builder.mutation<IVerifyToken, IVerifyToken>({
             query: (data) => ({
@@ -46,7 +54,7 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
         }),
         resetToken: builder.mutation<any, object>({
             query: (data) => ({
@@ -54,7 +62,7 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
         }),
         changePasswordForget: builder.mutation<void, IChangePasswordForget>({
             query: (data) => ({
@@ -62,7 +70,7 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
         }),
         changePasswordNew: builder.mutation<void, IChangePasswordNew>({ // Thêm endpoint cho đổi mật khẩu mới
             query: (data) => ({
@@ -70,7 +78,7 @@ const authApi = createApi({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["Auths"],
+            invalidatesTags: ["auths"],
         }),
     }),
 });
@@ -80,6 +88,7 @@ export const { useLoginMutation,
     useResetTokenMutation,
     useRegisterMutation,
     useForgetPasswordMutation,
+    useLogoutMutation,
     useVerifyUserMutation,
     useVerifyTokenMutation, useChangePasswordForgetMutation, useChangePasswordNewMutation } = authApi;
 export const authReducer = authApi.reducer;
