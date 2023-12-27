@@ -1,6 +1,5 @@
 
 
-import { Link } from "react-router-dom";
 import GroupBanner from "./components/groupBanner";
 import CategoryFeature from "./components/CategoryFeature";
 import Contact from "./components/Contact";
